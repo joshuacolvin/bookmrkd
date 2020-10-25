@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "bookmrkd",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authbookmrkdcce819d7",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

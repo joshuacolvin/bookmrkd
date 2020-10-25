@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Router, Link } from '@reach/router';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import BooksList from './pages/BooksList';
+import BookPreview from './pages/BookPreview';
+import Search from './components/Search';
+import BookDetails from './pages/BookDetails';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="flex flex-col h-screen">
+      <header className="bg-indigo-800 p-4 sticky">
+        <Link to="/">
+          <h1 className="text-white text-2xl font-extrabold">Bookmrkd</h1>
+        </Link>
       </header>
+      <div className="flex flex-row justify-between">
+        <div className="content p-6 flex-1 overflow-y-auto">
+          <Router>
+            <BooksList path="/" />
+            <BookPreview path="preview/:isbn" />
+            <BookDetails path="books/:bookId" />
+          </Router>
+        </div>
+        <Search />
+      </div>
     </div>
   );
 }
 
-export default App;
+export default withAuthenticator(App);

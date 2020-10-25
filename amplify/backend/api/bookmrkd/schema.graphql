@@ -1,0 +1,27 @@
+type Book @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  title: String!
+  authors: [String!]!
+  categories: [String!]!
+  isbn: String
+  pageCount: Int
+  publisher: String
+  thumbnail: String
+  createdAt: String
+  description: String
+  recommendations: [Recommendation]
+    @connection(keyName: "byBook", fields: ["id"])
+}
+
+type Recommendation
+  @model
+  @auth(rules: [{ allow: owner }])
+  @key(name: "byBook", fields: ["bookID"]) {
+  id: ID!
+  recommendedBy: String!
+  bookID: ID!
+  url: String
+  notes: String
+  createdAt: String
+  book: Book @connection(fields: ["bookID"])
+}
