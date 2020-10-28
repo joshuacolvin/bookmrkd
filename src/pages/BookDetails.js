@@ -31,13 +31,10 @@ function BookDetails({ bookId }) {
     setShowConfirmDialog(false);
     setSelectedRecommendation(null);
   };
-  const openConfirmDeleteBookDialog = () =>
-    setShowConfirmDeleteBookDialog(true);
   const closeConfirmDeleteBookDialog = () =>
     setShowConfirmDeleteBookDialog(false);
 
   const getBookDetails = useCallback(async () => {
-    console.log('getBookDetails');
     const { data } = await API.graphql(
       graphqlOperation(getBook, { id: bookId })
     );
@@ -101,8 +98,21 @@ function BookDetails({ bookId }) {
   }
 
   async function onDeleteBook() {
-    await API.graphql(graphqlOperation(deleteBook, { input: { id: bookId } }));
-    navigate(`/`);
+    const { data } = await API.graphql(
+      graphqlOperation(deleteBook, { input: { id: bookId } })
+    );
+
+    if (data.deleteBook.recommendations.items.length) {
+      data.deleteBook.recommendations.items.map(async (recommendation) => {
+        await API.graphql(
+          graphqlOperation(deleteRecommendation, {
+            input: { id: recommendation.id },
+          })
+        );
+      });
+    }
+
+    navigate('/');
   }
 
   return (

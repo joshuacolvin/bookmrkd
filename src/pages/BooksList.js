@@ -23,7 +23,7 @@ function BooksList() {
     <div>
       <h2 className="font-extrabold text-2xl">My Books</h2>
       <div className="flex flex-wrap">
-        {books &&
+        {books.length ? (
           books.map((book) => (
             <Link className="m-4" to={`books/${book.id}`} key={book.id}>
               <img
@@ -32,7 +32,12 @@ function BooksList() {
                 alt={`${book.title} cover`}
               />
             </Link>
-          ))}
+          ))
+        ) : (
+          <div className="mt-2 text-gray-700">
+            Add some books by using the search
+          </div>
+        )}
       </div>
     </div>
   );

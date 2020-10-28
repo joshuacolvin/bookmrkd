@@ -58,7 +58,10 @@ function Search() {
             />
             {searchTerm && (
               <span className="z-10 h-full leading-snug font-normal text-center text-gray-800 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-                <FaTimesCircle className="text-gray-700" onClick={onClear} />
+                <FaTimesCircle
+                  className="text-gray-700 cursor-pointer"
+                  onClick={onClear}
+                />
               </span>
             )}
           </div>
