@@ -17,6 +17,7 @@ export const createBook = /* GraphQL */ `
       thumbnail
       createdAt
       description
+      status
       recommendations {
         items {
           id
@@ -51,6 +52,7 @@ export const updateBook = /* GraphQL */ `
       thumbnail
       createdAt
       description
+      status
       recommendations {
         items {
           id
@@ -85,6 +87,7 @@ export const deleteBook = /* GraphQL */ `
       thumbnail
       createdAt
       description
+      status
       recommendations {
         items {
           id
@@ -126,6 +129,7 @@ export const createRecommendation = /* GraphQL */ `
         thumbnail
         createdAt
         description
+        status
         recommendations {
           nextToken
         }
@@ -160,6 +164,7 @@ export const updateRecommendation = /* GraphQL */ `
         thumbnail
         createdAt
         description
+        status
         recommendations {
           nextToken
         }
@@ -194,6 +199,7 @@ export const deleteRecommendation = /* GraphQL */ `
         thumbnail
         createdAt
         description
+        status
         recommendations {
           nextToken
         }

@@ -14,6 +14,7 @@ export const getBook = /* GraphQL */ `
       thumbnail
       createdAt
       description
+      status
       recommendations {
         items {
           id
@@ -50,6 +51,7 @@ export const listBooks = /* GraphQL */ `
         thumbnail
         createdAt
         description
+        status
         recommendations {
           nextToken
         }
@@ -80,6 +82,7 @@ export const getRecommendation = /* GraphQL */ `
         thumbnail
         createdAt
         description
+        status
         recommendations {
           nextToken
         }
@@ -116,6 +119,7 @@ export const listRecommendations = /* GraphQL */ `
           thumbnail
           createdAt
           description
+          status
           updatedAt
           owner
         }

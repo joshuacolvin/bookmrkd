@@ -9,6 +9,7 @@ type Book @model @auth(rules: [{ allow: owner, provider: userPools }]) {
   thumbnail: String
   createdAt: String
   description: String
+  status: Status
   recommendations: [Recommendation]
     @connection(keyName: "byBook", fields: ["id"])
 }
@@ -24,4 +25,11 @@ type Recommendation
   notes: String
   createdAt: String
   book: Book @connection(fields: ["bookID"])
+}
+
+enum Status {
+  WANT
+  PURCHASED
+  READING
+  READ
 }
