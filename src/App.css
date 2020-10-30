@@ -35,3 +35,8 @@
 .book-img-container {
   max-height: 240px;
 }
+
+.badge {
+  top: -12px;
+  left: -12px;
+}
