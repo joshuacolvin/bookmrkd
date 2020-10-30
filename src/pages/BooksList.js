@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listBooks } from '../graphql/queries';
 import { Link } from '@reach/router';
+import { listBooksAndRecommendations } from '../graphql/custom-queries';
 
 function BooksList() {
   const [books, setBooks] = useState([]);
@@ -12,7 +13,7 @@ function BooksList() {
         data: {
           listBooks: { items },
         },
-      } = await API.graphql(graphqlOperation(listBooks));
+      } = await API.graphql(graphqlOperation(listBooksAndRecommendations));
       setBooks(items);
     }
 
