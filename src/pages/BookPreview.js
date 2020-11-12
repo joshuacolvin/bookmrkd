@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { navigate } from '@reach/router';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createBook } from '../graphql/mutations';
+import { FaPlusCircle } from 'react-icons/fa';
 
 function BookPreview({ isbn }) {
   const [book, setBook] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!isbn) {
       return;
     }
+
+    setError(null);
 
     fetch(
       `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&maxResults=1`
@@ -17,10 +21,13 @@ function BookPreview({ isbn }) {
       .then((response) => response.json())
       .then(({ items }) => {
         setBook(items[0]);
+      })
+      .catch((error) => {
+        setError(error.message);
       });
   }, [isbn]);
 
-  async function addBook(book) {
+  function addBook(book) {
     const {
       title,
       authors,
@@ -41,13 +48,42 @@ function BookPreview({ isbn }) {
       publisher,
       isbn: industryIdentifiers[0].identifier,
       thumbnail: imageLinks.thumbnail,
+      status: 'WISHLIST',
     };
 
-    const { data } = await API.graphql(
-      graphqlOperation(createBook, { input: newBook })
-    );
+    setError(null);
 
-    navigate(`/books/${data.createBook.id}`);
+    API.graphql(graphqlOperation(createBook, { input: newBook }))
+      .then(({ data }) => {
+        navigate(`/books/${data.createBook.id}`);
+      })
+      .catch(({ errors }) => {
+        const { message } = errors[0];
+
+        if (message) {
+          setError(message);
+        }
+      });
+  }
+
+  if (error) {
+    return (
+      <div
+        className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 flex justify-between"
+        role="alert"
+      >
+        <div>
+          <p className="font-bold">Error</p>
+          <p>{error}</p>
+        </div>
+        <button
+          className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+          onClick={() => setError(null)}
+        >
+          Try Again
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -60,7 +96,7 @@ function BookPreview({ isbn }) {
               src={book.volumeInfo.imageLinks.thumbnail}
               alt={`${book.volumeInfo.title} cover`}
             />
-            <div className="ml-6 flex flex-col justify-between">
+            <div className="ml-12 flex flex-col justify-between">
               <div>
                 <h2 className="text-4xl font-extrabold">
                   {book.volumeInfo.title}
@@ -72,10 +108,12 @@ function BookPreview({ isbn }) {
                 )}
               </div>
               <button
-                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                className="bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full w-40"
                 onClick={() => addBook(book.volumeInfo)}
               >
-                Add Book
+                <span className="flex items-center">
+                  Add Book <FaPlusCircle className="ml-2" />
+                </span>{' '}
               </button>
             </div>
           </div>

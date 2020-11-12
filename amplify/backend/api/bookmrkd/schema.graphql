@@ -28,7 +28,7 @@ type Recommendation
 }
 
 enum Status {
-  WANT
+  WISHLIST
   PURCHASED
   READING
   READ

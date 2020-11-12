@@ -36,7 +36,7 @@ function BooksList() {
                 alt={`${book.title} cover`}
               />
               {book.recommendations && book.recommendations.items && (
-                <div class="badge absolute shadow-xl bg-indigo-700 font-bold text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+                <div className="badge absolute shadow-xl bg-indigo-700 font-bold text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
                   {book.recommendations.items.length}
                 </div>
               )}
