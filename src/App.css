@@ -40,3 +40,10 @@
   top: -12px;
   left: -12px;
 }
+
+@media screen and (max-width: 767px) {
+  .search {
+    height: 250px;
+    max-height: 250px;
+  }
+}

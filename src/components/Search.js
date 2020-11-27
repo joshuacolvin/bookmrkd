@@ -38,7 +38,7 @@ function Search() {
   }
 
   return (
-    <div className="search overflow-y-scroll  h-screen sticky top-0 p-6 pt-16">
+    <div className="search overflow-y-scroll md:h-screen md:sticky md:top-0 p-6 md:pt-16 bg-white">
       <form onSubmit={handleSubmit}>
         <div>
           <label
@@ -68,14 +68,16 @@ function Search() {
         </div>
       </form>
 
-      {searchResults &&
-        searchResults.map(({ id, volumeInfo }) => (
-          <React.Fragment key={id}>
-            {volumeInfo.industryIdentifiers ? (
-              <SearchResultCard book={volumeInfo} id={id} />
-            ) : null}
-          </React.Fragment>
-        ))}
+      <div className="results">
+        {searchResults &&
+          searchResults.map(({ id, volumeInfo }) => (
+            <React.Fragment key={id}>
+              {volumeInfo.industryIdentifiers ? (
+                <SearchResultCard book={volumeInfo} id={id} />
+              ) : null}
+            </React.Fragment>
+          ))}
+      </div>
     </div>
   );
 }

@@ -25,8 +25,8 @@ function App() {
     <div className="flex flex-col h-screen">
       <Header user={user} />
 
-      <div className="flex flex-row justify-between">
-        <div className="content p-6 flex-1 overflow-y-auto">
+      <div className="flex md:flex-row md:justify-between flex-col-reverse">
+        <div className="content p-6 pr-0 flex-1 overflow-y-auto">
           <Router>
             <BooksList path="/" />
             <BookPreview path="preview/:isbn" />
