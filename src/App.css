@@ -29,7 +29,7 @@
 }
 
 .book-details {
-  min-width: 148px;
+  min-width: 150px;
 }
 
 .book-img-container {
@@ -41,7 +41,7 @@
   left: -12px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1023px) {
   .search {
     height: 250px;
     max-height: 250px;

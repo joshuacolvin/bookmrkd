@@ -15,6 +15,9 @@ import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button';
 import RecommendationForm from '../components/RecommendationForm';
 import '@reach/menu-button/styles.css';
 import '@reach/dialog/styles.css';
+import { BookInfo } from '../components/BookInfo';
+import { BookThumbnail } from '../components/BookThumbnail';
+import { BookStatus } from '../components/BookStatus';
 
 function BookDetails({ bookId }) {
   const [book, setBook] = useState();
@@ -193,100 +196,68 @@ function BookDetails({ bookId }) {
   return (
     <div>
       {book && (
-        <div className="flex flex-col">
-          <div className="flex p-12 pb-0 book-img-container">
-            <img
-              className="shadow-md thumbnail-lg"
-              src={book.thumbnail}
-              alt={`${book.title} cover`}
-            />
-            <div className="ml-12 flex flex-col justify-between flex-auto">
-              <div>
-                <div className="flex justify-between items-center">
-                  <h2 className="text-4xl font-extrabold">{book.title}</h2>
-                  <Menu>
-                    <MenuButton>
-                      <FaEllipsisV />
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem
-                        onSelect={() => setShowConfirmDeleteBookDialog(true)}
-                      >
-                        Delete
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>
-                </div>
-                {book.authors && (
-                  <h3 className="text-indigo-700">{book.authors.join(', ')}</h3>
-                )}
+        <div className="flex flex-col sm:flex-row">
+          <div className="flex flex-row sm:flex-col book-details">
+            <BookThumbnail thumbnail={book.thumbnail} title={book.title} />
+            <div className="flex flex-col ml-6 sm:ml-0">
+              <div className="sm:mt-6">
+                <BookStatus
+                  status={book.status}
+                  handleStatusChange={handleStatusChange}
+                />
               </div>
-              <div className="flex">
-                {book.recommendations && book.recommendations.items && (
-                  <div
-                    className="mt-2 p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
-                    role="alert"
-                  >
-                    <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
-                      {book.recommendations.items.length}
-                    </span>
-                    <span className="font-semibold mr-2 text-left flex-auto">
-                      {book.recommendations.items.length > 1
-                        ? `recommendations`
-                        : `recommendation`}
-                    </span>
-                  </div>
-                )}
-                <button
-                  className="mt-2 ml-2 bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full"
-                  onClick={open}
-                >
-                  <span className="flex items-center">
-                    Add Recommendation <FaPlusCircle className="ml-2" />
-                  </span>
-                </button>
+              <div className="mt-6">
+                <BookInfo book={book} />
               </div>
             </div>
           </div>
-          <div className="flex p-12 pt-6">
-            <div className="book-details mt-2">
-              <div className="w-11/12 mb-6">
-                <label className="hidden" htmlFor="status">
-                  Status
-                </label>
-                <div className="relative">
-                  <select
-                    id="status"
-                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    onChange={handleStatusChange}
-                    value={book.status}
-                  >
-                    <option value="WISHLIST">Wishlist</option>
-                    <option value="PURCHASED">Purchased</option>
-                    <option value="READING">Reading</option>
-                    <option value="READ">Read</option>
-                  </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg
-                      className="fill-current h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
+          <div className="flex flex-col justify-between flex-auto sm:ml-6 mr-6 mt-6 sm:mt-0">
+            <div>
+              <div className="flex justify-between items-center">
+                <h2 className="text-4xl font-extrabold">{book.title}</h2>
+                <Menu>
+                  <MenuButton className="mr-4">
+                    <FaEllipsisV />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem
+                      onSelect={() => setShowConfirmDeleteBookDialog(true)}
                     >
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </div>
-                </div>
+                      Delete
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </div>
-              {book.categories && (
-                <p className="text-gray-600 text-xs">
-                  {book.categories.join(', ')}
-                </p>
+              {book.authors && (
+                <h3 className="text-indigo-700">{book.authors.join(', ')}</h3>
               )}
-              <p className="text-gray-600 text-xs">{book.publisher}</p>
-              <p className="text-gray-600 text-xs">{book.pageCount} pages</p>
-              <p className="text-gray-600 text-xs">ISBN {book.isbn}</p>
             </div>
-            <div className="flex flex-col flex-auto ml-4">
+            <div className="flex flex-col sm:flex-row">
+              {book.recommendations && book.recommendations.items && (
+                <div
+                  className="mt-6 p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-full inline-flex"
+                  role="alert"
+                >
+                  <span className="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">
+                    {book.recommendations.items.length}
+                  </span>
+                  <span className="font-semibold mr-2 text-left flex-auto">
+                    {book.recommendations.items.length > 1
+                      ? `recommendations`
+                      : `recommendation`}
+                  </span>
+                </div>
+              )}
+              <button
+                className="mt-6 sm:ml-2 bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full"
+                onClick={open}
+              >
+                <span className="flex items-center justify-between">
+                  Add Recommendation <FaPlusCircle className="ml-2" />
+                </span>
+              </button>
+            </div>
+            <div className="flex flex-col flex-auto mt-6">
               {book.recommendations &&
                 book.recommendations.items &&
                 book.recommendations.items.map((recommendation) => (

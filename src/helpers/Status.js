@@ -1,0 +1,8 @@
+const STATUS = {
+  WISHLIST: 'WHISHLIST',
+  PURCHASED: 'PURCHASED',
+  READING: 'READING',
+  READ: 'READ',
+};
+
+export { STATUS };

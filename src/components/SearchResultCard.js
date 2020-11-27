@@ -5,7 +5,7 @@ import { FaChevronRight } from 'react-icons/fa';
 function SearchResultCard({ id, book }) {
   return (
     <Link to={`preview/${book.industryIdentifiers[0].identifier}`}>
-      <div>
+      <div className="bg-gray-200">
         <div className="flex p-5" key={id}>
           <img
             className="thumbnail shadow-md"

@@ -38,7 +38,7 @@ function Search() {
   }
 
   return (
-    <div className="search overflow-y-scroll md:h-screen md:sticky md:top-0 p-6 md:pt-16 bg-white">
+    <div className="search overflow-y-scroll lg:h-screen lg:sticky lg:top-0 p-6 bg-white">
       <form onSubmit={handleSubmit}>
         <div>
           <label
