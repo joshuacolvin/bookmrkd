@@ -3,6 +3,8 @@ import { navigate } from '@reach/router';
 import { API, graphqlOperation } from 'aws-amplify';
 import { createBook } from '../graphql/mutations';
 import { FaPlusCircle } from 'react-icons/fa';
+import { BookThumbnail } from '../components/BookThumbnail';
+import { BookInfo } from '../components/BookInfo';
 
 function BookPreview({ isbn }) {
   const [book, setBook] = useState(null);
@@ -89,53 +91,39 @@ function BookPreview({ isbn }) {
   return (
     <div>
       {book && (
-        <div className="flex flex-col">
-          <div className="flex p-12 pb-0 book-img-container">
-            <img
-              className="shadow-md thumbnail-lg"
-              src={book.volumeInfo.imageLinks.thumbnail}
-              alt={`${book.volumeInfo.title} cover`}
+        <div className="flex flex-col md:flex-row">
+          <div className="flex flex-row md:flex-col book-details">
+            <BookThumbnail
+              thumbnail={book.volumeInfo.imageLinks.thumbnail}
+              title={book.volumeInfo.title}
             />
-            <div className="ml-12 flex flex-col justify-between">
-              <div>
-                <h2 className="text-4xl font-extrabold">
-                  {book.volumeInfo.title}
-                </h2>
-                {book.volumeInfo.authors && (
-                  <h3 className="text-blue-600">
-                    {book.volumeInfo.authors.join(', ')}
-                  </h3>
-                )}
-              </div>
-              <button
-                className="bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full w-40"
-                onClick={() => addBook(book.volumeInfo)}
-              >
-                <span className="flex items-center">
-                  Add Book <FaPlusCircle className="ml-2" />
-                </span>{' '}
-              </button>
+            <div className="ml-6 md:ml-0 md:mt-6">
+              <BookInfo book={{ ...book.volumeInfo, isbn }} />
             </div>
           </div>
-          <div className="flex p-12 pt-6">
-            <div className="book-details mt-2">
-              {book.volumeInfo.categories && (
-                <p className="text-gray-600 text-xs">
-                  {book.volumeInfo.categories.join(', ')}
-                </p>
-              )}
-              <p className="text-gray-600 text-xs">
-                {book.volumeInfo.publisher}
-              </p>
-              {book.volumeInfo.pageCount ? (
-                <p className="text-gray-600 text-xs">
-                  {book.volumeInfo.pageCount} pages
-                </p>
-              ) : null}
-              <p className="text-gray-600 text-xs">ISBN {isbn}</p>
-            </div>
-            <div className="book-description ml-6">
-              <h2 className="text-2xl font-semibold mb-2">Description</h2>
+          <div className="flex flex-col">
+            <div className="book-description md:ml-6">
+              <div className="flex flex-col justify-between">
+                <div>
+                  <h2 className="text-4xl font-extrabold mt-6 md:mt-0">
+                    {book.volumeInfo.title}
+                  </h2>
+                  {book.volumeInfo.authors && (
+                    <h3 className="text-blue-600">
+                      {book.volumeInfo.authors.join(', ')}
+                    </h3>
+                  )}
+                </div>
+                <button
+                  className="bg-indigo-500 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded-full w-40 mt-6"
+                  onClick={() => addBook(book.volumeInfo)}
+                >
+                  <span className="flex items-center">
+                    Add Book <FaPlusCircle className="ml-2" />
+                  </span>{' '}
+                </button>
+              </div>
+              <h2 className="text-2xl font-semibold mb-2 mt-6">Description</h2>
               <p className="text-gray-700 text-sm">
                 {book.volumeInfo.description}
               </p>
