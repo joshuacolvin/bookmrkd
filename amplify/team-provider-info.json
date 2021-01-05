@@ -16,5 +16,24 @@
         "bookmrkdcce819d7": {}
       }
     }
+  },
+  "bookmrkd": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bookmrkd-bookmrkd-194402-authRole",
+      "UnauthRoleArn": "arn:aws:iam::908920689641:role/amplify-bookmrkd-bookmrkd-194402-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::908920689641:role/amplify-bookmrkd-bookmrkd-194402-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bookmrkd-bookmrkd-194402-deployment",
+      "UnauthRoleName": "amplify-bookmrkd-bookmrkd-194402-unauthRole",
+      "StackName": "amplify-bookmrkd-bookmrkd-194402",
+      "StackId": "arn:aws:cloudformation:us-east-1:908920689641:stack/amplify-bookmrkd-bookmrkd-194402/1dfc8210-4eef-11eb-ba0f-0af655d326e7",
+      "AmplifyAppId": "d2car9jzdjxk7a"
+    },
+    "categories": {
+      "auth": {
+        "bookmrkdcce819d7": {},
+        "userPoolGroups": {}
+      }
+    }
   }
 }
